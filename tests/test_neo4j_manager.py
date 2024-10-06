@@ -10,7 +10,7 @@ class TestNeo4jManager(unittest.TestCase):
 
         self.mock_driver.session.return_value.__enter__.return_value = self.mock_session
 
-        self.neo4j_manager = Neo4jManager("bolt://localhost:7687", "username", "password")
+        self.neo4j_manager = Neo4jManager()
 
     def test_create_application(self):
         # Arrange
