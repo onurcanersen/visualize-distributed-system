@@ -5,7 +5,11 @@ import os
 load_dotenv()
 
 class Neo4jManager:
-    def __init__(self, uri, username, password):
+    def __init__(self):
+        uri = os.getenv("NEO4J_URI")
+        username = os.getenv("NEO4J_USERNAME")
+        password = os.getenv("NEO4J_PASSWORD")
+
         self.driver = GraphDatabase.driver(uri, auth=(username, password))
 
     def close(self):
@@ -15,7 +19,7 @@ class Neo4jManager:
     def _create_application_tx(tx, name, type):
         tx.run("CREATE (a:Application {name: $name, type: $type})", name=name, type=type)
 
-    def create_application(self, name, type):
+    def create_application(self, name, type=""):
         with self.driver.session() as session:
             session.execute_write(self._create_application_tx, name, type)
 
@@ -32,11 +36,7 @@ class Neo4jManager:
             session.execute_write(self._create_information_tx, app_from, app_to, info)
 
 if __name__ == "__main__":
-    uri = os.getenv("NEO4J_URI")
-    username = os.getenv("NEO4J_USERNAME")
-    password = os.getenv("NEO4J_PASSWORD")
-
-    neo4j_manager = Neo4jManager(uri, username, password)
+    neo4j_manager = Neo4jManager()
 
     neo4j_manager.create_application("App 1", "Web")
     neo4j_manager.create_application("App 2", "Web")
