@@ -38,9 +38,9 @@ if __name__ == "__main__":
 
     neo4j_manager = Neo4jManager(uri, username, password)
 
-    neo4j_manager.create_application("App1", "Web")
-    neo4j_manager.create_application("App2", "Web")
+    neo4j_manager.create_application("App 1", "Web")
+    neo4j_manager.create_application("App 2", "Web")
 
-    neo4j_manager.create_information("App1", "App2", "Data request")
+    neo4j_manager.create_information("App 1", "App 2", "Data request")
 
     neo4j_manager.close()
