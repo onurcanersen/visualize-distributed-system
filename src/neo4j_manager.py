@@ -17,7 +17,7 @@ class Neo4jManager:
 
     def create_application(self, name, type):
         with self.driver.session() as session:
-            session.write_transaction(self._create_application_tx, name, type)
+            session.execute_write(self._create_application_tx, name, type)
 
     @staticmethod
     def _create_information_tx(tx, app_from, app_to, info):
@@ -29,7 +29,7 @@ class Neo4jManager:
 
     def create_information(self, app_from, app_to, info):
         with self.driver.session() as session:
-            session.write_transaction(self._create_information_tx, app_from, app_to, info)
+            session.execute_write(self._create_information_tx, app_from, app_to, info)
 
 if __name__ == "__main__":
     uri = os.getenv("NEO4J_URI")
